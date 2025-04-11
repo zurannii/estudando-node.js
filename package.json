@@ -1,0 +1,22 @@
+{
+  "name": "estudando-node",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "fundamentos.js",
+  "scripts": {
+    "dev": "node --watch src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zurannii/estudando-node.js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zurannii/estudando-node.js/issues"
+  },
+  "homepage": "https://github.com/zurannii/estudando-node.js#readme",
+  "description": ""
+}
+

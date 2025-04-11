@@ -36,3 +36,11 @@ class OndeToHundredSteam extends Readable {
 }
 
 new OndeToHundredSteam().pipe(process.stdout)
+
+// streams são objetos que permitem ler e escrever dados de forma assíncrona e eficiente
+// eles são usados para lidar com grandes quantidades de dados sem precisar carregar tudo na memória de uma vez só
+
+process.stdin
+    .pipe(process.stdout) // lê os dados do stdin e escreve no stdout
+// pipe é um método que conecta a saída de um stream à entrada de outro stream
+
