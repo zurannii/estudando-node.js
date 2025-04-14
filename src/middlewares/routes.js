@@ -1,12 +1,14 @@
+import path from "path"
 import { Database } from "./database.js"
 import { randomUUID } from 'crypto'
+import { buildRoutePath } from "../utils/build-route-path.js"
 
     const database = new Database()
 
     export const routes = [
     {
         method: 'GET',
-        path: '/users',
+        path: buildRoutePath ('/users'),
         handler: (req, res) => {
             const users = database.select('users')
 
@@ -15,7 +17,7 @@ import { randomUUID } from 'crypto'
     },
     {
         method: 'POST',
-        path: '/users',
+        path: buildRoutePath ('/users'),
         handler: (req, res) => {
             const { name, email } = req.body
     
@@ -29,6 +31,26 @@ import { randomUUID } from 'crypto'
     
             return res.writeHead(201, { 'Content-Type': 'application/json' }).end(JSON.stringify(user))
         }
+    },
+    {
+        method: 'PUT',
+        path: buildRoutePath ('/users/:id'),
+        handler: (req, res) => {
+            const id = req.params
+            const{ name, email} = req.body
+
+            database.delete('users', id)
+            return res.writeHead(204).end()
     }
-    
-]
+},
+    {
+        method: 'DELETE',
+        path: buildRoutePath ('/users/:id'),
+        handler: (req, res) => {
+            const id = req.params
+
+            database.delete('users', id)
+            return res.writeHead(204).end()
+    }
+}
+]  

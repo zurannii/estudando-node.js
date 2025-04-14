@@ -5,11 +5,13 @@ import { routes } from './middlewares/routes.js'
 
 // query paramenters: url stateful => filros, paginação, não-obrigatórios
 // route parameters: url stateless => identificação de recursos, obrigatórios
-// request body: enviar dados para o servidor, não-obrigatórios
+// request body: enviar dados para o servidor, não-obrigatórios (HTTPs)
 
 //http://localhost:3333/users?id=1&name=Lucas
 //http://localhost:3333/users/1
 // http://localhost:3333/users/1?name=Lucas&age=20
+
+// edição e remoção do usuario
 
 const server = http.createServer(async (req, res) => {
   const { method, url } = req
@@ -18,10 +20,14 @@ const server = http.createServer(async (req, res) => {
   await json(req, res)
 
   const route = routes.find(route => {
-    return route.method === method && route.path === pathname
+    return route.method === method && route.path.test(url)
   })
 
   if (route) {
+    const routeParams = req.url.match(route.path)
+
+    req.params = { ...routeParams.groups }
+
     return route.handler(req, res)
   }
 
