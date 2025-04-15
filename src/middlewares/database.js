@@ -20,8 +20,18 @@ export class Database {
     await fs.writeFile(databasePath, JSON.stringify(this.#database, null, 2))
   }
 
-  select(table) {
+  select(table, search) {
     const data = this.#database[table] ?? []
+
+    if (search) {
+      data = data.filter(row => {
+        return Object.entries(search).some(([key, value]) => {
+          return row[key].includes(value)
+        })
+      })
+    }
+
+
     return data 
   }
 
@@ -41,7 +51,7 @@ export class Database {
     const rowIndex = this.#database[table].findIndex(row => row.id === id)
 
     if (rowIndex > -1) {
-      this.#database[table] = { id, ...data }
+      this.#database[table][rowIndex] = { id, ...data }
       this.#persist()
     }
   }
